@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valhalla Hybrid | Train Unbroken</title>
+    <meta name="description" content="Valhalla Hybrid is a hybrid training app with military-style progression, XP, ranks, and medals. Functional training, strength, running, and cardio built for discipline and results.">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="Valhalla Hybrid">
+    <meta property="og:description" content="Train unbroken. Hybrid training with military-style progression.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="/assets/join/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ── RESET ── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ── BASE ── */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gold: #C9A84C;
+            --gold-dim: #9A7B30;
+            --gold-bright: #E8C36A;
+            --gray-100: #F5F5F5;
+            --gray-200: #E0E0E0;
+            --gray-400: #A0A0A0;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --gray-950: #0D0D0D;
+            --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── SHARED ── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .text-gold { color: var(--gold); }
+        .text-dim { color: var(--gray-400); }
+
+        .label {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .heading-xl {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .heading-lg {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 4vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.15;
+        }
+
+        .heading-md {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .body-text {
+            font-size: 1rem;
+            color: var(--gray-400);
+            line-height: 1.8;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 18px 44px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(201, 168, 76, 0.25);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--white);
+            padding: 16px 44px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--gray-800);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-gold svg { flex-shrink: 0; }
+
+        /* ── DIVIDER ── */
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 32px 0;
+        }
+
+        /* ── LANG TOGGLE ── */
+        .lang-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--gray-800);
+            color: var(--gray-400);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ════════════════════════════════════════════════════
+           HERO — splash screen com a imagem do squad
+           ════════════════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at top, rgba(201, 168, 76, 0.08), transparent 40%),
+                var(--black);
+        }
+
+        .hero-splash {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            margin-bottom: 48px;
+            filter: drop-shadow(0 0 60px rgba(201, 168, 76, 0.08));
+        }
+
+        .hero-headline {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 7vw, 5rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .hero-sub {
+            font-family: var(--font-body);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 400;
+            color: var(--gray-400);
+            max-width: 520px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .hero-price {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: var(--gray-500);
+            margin-top: 8px;
+        }
+
+        .hero-price strong {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* ════════════════════════════════════════════════════
+           PROBLEMA — gancho psicológico
+           ════════════════════════════════════════════════════ */
+        .problem {
+            padding: 100px 0 80px;
+            background: var(--black);
+            text-align: center;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 64px;
+        }
+
+        .problem-card {
+            background: var(--gray-950);
+            padding: 48px 28px;
+            text-align: left;
+            transition: background 0.3s;
+        }
+
+        .problem-card:hover { background: var(--gray-900); }
+
+        .problem-card .num {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--gold-dim);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .problem-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+
+        .problem-card p {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        /* ════════════════════════════════════════════════════
+           PROMESSA — solução
+           ════════════════════════════════════════════════════ */
+        .promise {
+            padding: 100px 0;
+            background: var(--gray-950);
+            text-align: center;
+        }
+
+        .promise-box {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .promise-box .big-text {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.25;
+            margin-bottom: 32px;
+        }
+
+        .promise-box .body-text {
+            margin-bottom: 20px;
+        }
+
+        /* ════════════════════════════════════════════════════
+           COMO FUNCIONA
+           ════════════════════════════════════════════════════ */
+        .how {
+            padding: 100px 0;
+            background: var(--black);
+        }
+
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 56px;
+        }
+
+        .how-card {
+            background: var(--gray-950);
+            padding: 52px 32px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .how-card:hover { background: var(--gray-900); }
+
+        .how-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gray-800);
+            font-size: 1.6rem;
+        }
+
+        .how-card:hover .how-icon {
+            border-color: var(--gold-dim);
+        }
+
+        .how-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        .how-card p {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        /* ════════════════════════════════════════════════════
+           PATENTES — progressão militar
+           ════════════════════════════════════════════════════ */
+        .ranks {
+            padding: 100px 0;
+            background: var(--gray-950);
+        }
+
+        .ranks-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 56px;
+        }
+
+        .rank-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rank-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 24px;
+            border-left: 3px solid var(--gray-800);
+            transition: all 0.3s;
+        }
+
+        .rank-item:hover {
+            border-left-color: var(--gold);
+            background: rgba(201, 168, 76, 0.03);
+        }
+
+        .rank-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            border: 2px solid var(--gray-800);
+            background: var(--gray-950);
+        }
+
+        .rank-item:hover .rank-icon {
+            border-color: var(--gold-dim);
+        }
+
+        .rank-info h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .rank-info p {
+            font-size: 0.82rem;
+            color: var(--gray-500);
+            margin-top: 3px;
+        }
+
+        .ranks-text .body-text {
+            margin-bottom: 20px;
+        }
+
+        /* ════════════════════════════════════════════════════
+           COMUNIDADE — a imagem do squad de novo
+           ════════════════════════════════════════════════════ */
+        .community {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .community-bg {
+            position: absolute;
+            inset: 0;
+            background: url('assets/pelotao.jpeg') center center / cover no-repeat;
+            filter: brightness(0.28) contrast(1.08) saturate(0.95);
+        }
+
+        .community-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.8) 0%,
+                rgba(0,0,0,0.4) 40%,
+                rgba(0,0,0,0.4) 60%,
+                rgba(0,0,0,0.85) 100%
+            );
+        }
+
+        .community-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 80px 24px;
+            max-width: 700px;
+        }
+
+        .community-content .heading-xl {
+            margin-bottom: 24px;
+        }
+
+        .community-content .body-text {
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+        }
+
+        /* ════════════════════════════════════════════════════
+           LÍDER — quem lidera o squad
+           ════════════════════════════════════════════════════ */
+        .leader {
+            padding: 120px 0;
+            background: var(--black);
+        }
+
+        .leader-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .leader-photo {
+            position: relative;
+        }
+
+        .leader-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(0.9) contrast(1.05);
+        }
+
+        .leader-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--black), transparent);
+            pointer-events: none;
+        }
+
+        .leader-text .label {
+            margin-bottom: 20px;
+        }
+
+        .leader-text .name {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.15;
+            margin-bottom: 8px;
+        }
+
+        .leader-text .role {
+            font-size: 0.85rem;
+            color: var(--gold-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        .leader-quote {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 1.35;
+            letter-spacing: 0.5px;
+            margin-bottom: 28px;
+            padding-left: 20px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .leader-bio {
+            font-size: 0.95rem;
+            color: var(--gray-400);
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .leader-creds {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .leader-cred {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--gray-400);
+        }
+
+        .leader-cred .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .leader-signature {
+            margin-top: 36px;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gray-600);
+        }
+
+        /* ════════════════════════════════════════════════════
+           PREÇO
+           ════════════════════════════════════════════════════ */
+        .pricing {
+            padding: 100px 0;
+            background: var(--black);
+            text-align: center;
+        }
+
+        .price-card {
+            max-width: 480px;
+            margin: 56px auto 0;
+            border: 1px solid var(--gray-800);
+            padding: 56px 40px;
+            position: relative;
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--black);
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+        }
+
+        .price-old {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            text-decoration: line-through;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .price-current {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .price-period {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+        }
+
+        .price-details {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .price-detail {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--gray-400);
+        }
+
+        .price-detail .check {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* ════════════════════════════════════════════════════
+           FAQ
+           ════════════════════════════════════════════════════ */
+        .faq {
+            padding: 80px 0 100px;
+            background: var(--gray-950);
+        }
+
+        .faq-list {
+            max-width: 680px;
+            margin: 48px auto 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--gray-800);
+            padding: 24px 0;
+        }
+
+        .faq-q {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .faq-a {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        /* ════════════════════════════════════════════════════
+           CTA FINAL
+           ════════════════════════════════════════════════════ */
+        .cta-final {
+            padding: 120px 0;
+            background: var(--black);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-final::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-final .heading-lg {
+            margin-bottom: 20px;
+        }
+
+        .cta-final .body-text {
+            max-width: 520px;
+            margin: 0 auto 48px;
+        }
+
+        /* ════════════════════════════════════════════════════
+           FOOTER
+           ════════════════════════════════════════════════════ */
+        footer {
+            background: var(--black);
+            border-top: 1px solid var(--gray-900);
+            padding: 48px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-brand img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-brand span {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        /* ════════════════════════════════════════════════════
+           MOBILE
+           ════════════════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .problem-grid,
+            .how-grid { grid-template-columns: 1fr; }
+            .ranks-layout { grid-template-columns: 1fr; gap: 48px; }
+            .leader-layout { grid-template-columns: 1fr; gap: 48px; }
+            .leader-photo::after { display: none; }
+        }
+
+        @media (max-width: 640px) {
+            .hero { padding: 60px 16px 48px; }
+            .hero-splash { max-width: 260px; }
+            .price-card { padding: 48px 24px; }
+            .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+            .leader { padding: 80px 0; }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- ════════════════════════════════════════════════════
+         HERO — imagem do squad + headline emocional
+         ════════════════════════════════════════════════════ -->
+    <section class="hero" id="top">
+        <img src="/assets/join/splash.png" alt="Valhalla Hybrid — Pelotão de Espíritos Invictos" class="hero-splash">
+
+        <h1 class="hero-headline">
+            Train Like<br><span class="text-gold">You Mean It.</span>
+        </h1>
+
+        <p class="hero-sub">
+            Hybrid training with military-style progression. Functional work, strength, running, and cardio — all tied to XP, ranks, and medals that turn discipline into results.
+        </p>
+
+        <div class="hero-cta-group" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px;">
+            <a href="https://play.google.com/store/apps/details?id=com.valhallahybr.app" target="_blank" rel="noopener" class="btn-gold">
+                <svg width="20" height="22" viewBox="0 0 20 22" fill="none"><path d="M1 1L10.5 11 1 21V1Z" fill="#000"/><path d="M14 7L10.5 11L14 15L18 12.5L14 7Z" fill="#000"/><path d="M1 1L10.5 11L14 7L1 1Z" fill="#000" opacity="0.6"/></svg>
+                DOWNLOAD APP & START • $14.99/MO
+            </a>
+            <span class="hero-price" style="color: var(--gray-400); font-size: 0.9rem;">Instant download on Google Play • Cancel anytime • 7-day guarantee</span>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         PROBLEMA — ganchos psicológicos
+         ════════════════════════════════════════════════════ -->
+    <section class="problem">
+        <div class="container">
+            <span class="label">The Problem</span>
+            <h2 class="heading-lg">Have you ever felt like you<br><span class="text-gold">train hard and still stall?</span></h2>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <span class="num">01</span>
+                    <h3>Training without direction</h3>
+                    <p>You show up, do random work, and leave without knowing if you actually got better. No system, no progression.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="num">02</span>
+                    <h3>Strength without stamina</h3>
+                    <p>You can lift, but you gas out fast. Strong on paper, underprepared in real life.</p>
+                </div>
+                <div class="problem-card">
+                    <span class="num">03</span>
+                    <h3>No community</h3>
+                    <p>You train alone with nobody pushing you forward. The first hard week hits and you drop off again.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         GANCHO EMOCIONAL — o porquê
+         ════════════════════════════════════════════════════ -->
+    <section class="promise">
+        <div class="container">
+            <div class="promise-box">
+                <span class="label">Why It Exists</span>
+                <p class="big-text">
+                    You want to be the man who<br>
+                    <span class="text-gold">shows up when your family needs you.</span><br>
+                    Not the guy who runs out of gas climbing stairs.
+                </p>
+                <div class="divider" style="margin: 32px auto;"></div>
+                <p class="body-text">
+                    Valhalla Hybrid is not just another workout app. It is a hybrid training system — functional training, strength, running, and cardio — built to turn discipline into measurable progress.
+                </p>
+                <p class="body-text">
+                    Every session earns XP. Every XP moves you toward a higher rank. Every rank proves you kept showing up.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         COMO FUNCIONA
+         ════════════════════════════════════════════════════ -->
+    <section class="how">
+        <div class="container">
+            <span class="label">How It Works</span>
+            <h2 class="heading-lg">Three pillars.<br><span class="text-gold">One system.</span></h2>
+
+            <div class="how-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+                <div class="how-card">
+                    <div class="how-icon">⚡</div>
+                    <h3>Hybrid Workouts</h3>
+                    <p>Functional training, strength, running, and cardio blended into a single session. You do not just get better at one thing — you get ready for anything.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">📱</div>
+                    <h3>Wearable Sync</h3>
+                    <p>Connect Garmin, Apple Watch, or Google Fit. Every step and calorie automatically feeds your XP and rank progression — zero manual entry.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">🎖️</div>
+                    <h3>XP & Ranks</h3>
+                    <p>Every completed mission earns XP based on the challenge level. Stack XP, climb the ranks, unlock medals.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">🛡️</div>
+                    <h3>The Squad</h3>
+                    <p>Join a tight group of fighters who train, compete, and level up together. No one is left behind.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         PATENTES — progressão
+         ════════════════════════════════════════════════════ -->
+    <section class="ranks">
+        <div class="container">
+            <div class="ranks-layout">
+                <div class="rank-list">
+                    <!-- Progress Bar Header -->
+                    <div style="background: #161616; border: 1px solid #2a2a2a; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="color: #d4af37; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px;">XP LADDER PROGRESSION</span>
+                            <span style="color: #888; font-size: 0.8rem;">0 XP ➔ 6,500+ XP</span>
+                        </div>
+                        <div style="width: 100%; background: #222; height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="width: 100%; background: linear-gradient(90deg, #888, #d4af37, #ffcc00); height: 100%;"></div>
+                        </div>
+                        <p style="color: #aaa; font-size: 0.8rem; margin-top: 10px;">Every workout earned increases your XP. Clear milestones to unlock ranks, medals, and elite status.</p>
+                    </div>
+
+                    <!-- Ranks Grid / List -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">🎖️</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Recruit</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">0 – 199 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">First steps in the barracks. Lock in the basics.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: Basic Training Badge</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">🛡️</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Private</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">200 – 499 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Learning the training base and building stamina.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: 5 Workouts Completed Badge</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">⚔️</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Corporal</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">500 – 999 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Earning the first stripes. Consistency takes over.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: 15 Workouts Streak Badge</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">🎯</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Sergeant</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">1,000 – 1,499 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Leading initial squads. Discipline is now a habit.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: Full Track Completion Badge</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">🎖️</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Master Sergeant</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">1,500 – 1,999 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Troop veteran. Unbreakable physical standard.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: Iron Stamina Badge</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">⭐</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Lieutenant</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">2,000 – 2,999 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Entering the officer corps. Advanced hybrid mastery.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: Officer Status & Elite Badge</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">⭐</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Captain</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">3,000 – 4,499 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Leading companies. Peak conditioning reached.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: Commander Medal of Honor</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px;">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.1); padding: 10px; border-radius: 6px;">👑</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 2px;">Commander</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">4,500 – 6,499 XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Inspiring and guiding warriors across all squads.</p>
+                                <span style="color: #666; font-size: 0.75rem;">Unlocked: General Staff Badge</span>
+                            </div>
+                        </div>
+
+                        <div class="rank-item" style="background: #121212; border: 1px solid #222; padding: 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 15px; border-color: rgba(212,175,55,0.3);">
+                            <div class="rank-icon" style="font-size: 1.5rem; background: rgba(212,175,55,0.2); padding: 10px; border-radius: 6px;">⚡</div>
+                            <div class="rank-info" style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="color: #d4af37; font-size: 1rem; margin-bottom: 2px;">Einherjar</h4>
+                                    <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">6,500+ XP</span>
+                                </div>
+                                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 6px;">Elite warrior chosen by Odin. Unbroken peak.</p>
+                                <span style="color: #d4af37; font-size: 0.75rem; font-weight: bold;">Unlocked: Valhalla Legend Medal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ranks-text">
+                    <span class="label">Progression</span>
+                    <h2 class="heading-lg">Every rank is a<br><span class="text-gold">real milestone</span></h2>
+                    <div class="divider"></div>
+                    <p class="body-text">
+                        In Valhalla Hybrid, no workout goes to waste. Counted sessions push you up the ladder. Each rank is proof that you stayed in the fight.
+                    </p>
+                    <p class="body-text">
+                        The progression system is built to keep you focused, consistent, and moving forward — like a game that never stops rewarding discipline.
+                    </p>
+                    <a href="#pricing" class="btn-outline" style="margin-top: 32px;">
+                        START NOW
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         COMUNIDADE — a imagem do squad em destaque
+         ════════════════════════════════════════════════════ -->
+    <section class="community" id="community">
+        <div class="community-bg"></div>
+        <div class="community-overlay"></div>
+        <div class="community-content">
+            <span class="label">The Platoon</span>
+            <h2 class="heading-xl">Join the<br><span class="text-gold">squad.</span></h2>
+            <p class="body-text">
+                People who train together evolve together. Join the group, meet the fighters, compete, and move up the ranks with the squad.
+            </p>
+            <a href="https://play.google.com/store/apps/details?id=com.valhallahybr.app" target="_blank" rel="noopener" class="btn-gold" style="margin: 0 auto;">
+                JOIN THE GROUP
+            </a>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         LÍDER — quem lidera o squad
+         ════════════════════════════════════════════════════ -->
+    <section class="leader">
+        <div class="container">
+            <div class="leader-layout">
+                <div class="leader-photo">
+                    <img src="/assets/join/lider-fundador.jpeg" alt="Rui Gabriel Bueno Santos — Founder of Valhalla Hybrid">
+                </div>
+                <div class="leader-text">
+                    <span class="label">Who Leads</span>
+                    <h2 class="name">Rui Bueno</h2>
+                    <p class="role" data-i18n="leader-role">Founder & Creator of Valhalla Hybrid</p>
+
+                    <p class="leader-quote">
+                        "I built Valhalla Hybrid because training without a system is just wasted effort."
+                    </p>
+
+                    <p class="leader-bio">
+                        Valhalla Hybrid came out of practice — years of training, testing methods, and realizing that most people do not lack motivation, they lack a system that actually turns discipline into results.
+                    </p>
+
+                    <div class="leader-creds">
+                        <div class="leader-cred">
+                            <span class="dot"></span>
+                            <span>Hybrid training specialist</span>
+                        </div>
+                        <div class="leader-cred">
+                            <span class="dot"></span>
+                            <span>Creator of the Valhalla progression method</span>
+                        </div>
+                        <div class="leader-cred">
+                            <span class="dot"></span>
+                            <span>Experience in strength, running, and conditioning</span>
+                        </div>
+                        <div class="leader-cred">
+                            <span class="dot"></span>
+                            <span>Leader of the Unbroken Spirits squad</span>
+                        </div>
+                    </div>
+
+                    <p class="leader-signature">— Unbroken Spirit</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         CASES / MISSION DEBRIEFS — Prova Social Real
+         ════════════════════════════════════════════════════ -->
+    <section class="cases" style="padding: 80px 0; background: #0a0a0a; border-top: 1px solid #222; border-bottom: 1px solid #222;">
+        <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <span class="label">Proven Results</span>
+                <h2 class="heading-lg">Recent<br><span class="text-gold">Mission Debriefs</span></h2>
+                <p class="body-text" style="max-width: 600px; margin: 15px auto 0;">Real operatives. Real combat results. No excuses, just pure system execution.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                <!-- Case 1 -->
+                <div class="case-card" style="background: #121212; border: 1px solid #262626; padding: 30px; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <span style="background: rgba(212,175,55,0.1); color: #d4af37; padding: 4px 10px; font-size: 0.8rem; font-weight: bold; border-radius: 4px;">LIEUTENANT</span>
+                        <span style="color: #888; font-size: 0.85rem;">16 Weeks</span>
+                    </div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 8px; color: #fff;">Operative Igor Teixeira</h3>
+                    <p style="color: #d4af37; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;">-11kg fat / +4kg muscle</p>
+                    <p style="color: #aaa; font-size: 0.9rem; line-height: 1.5; font-style: italic;">
+                        "Turned discipline into pure execution. Dropped body fat while packing on quality muscle through strict hybrid execution."
+                    </p>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="case-card" style="background: #121212; border: 1px solid #262626; padding: 30px; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <span style="background: rgba(212,175,55,0.1); color: #d4af37; padding: 4px 10px; font-size: 0.8rem; font-weight: bold; border-radius: 4px;">SERGEANT</span>
+                        <span style="color: #888; font-size: 0.85rem;">15 Weeks</span>
+                    </div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 8px; color: #fff;">Operative Leanderson</h3>
+                    <p style="color: #d4af37; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;">Built +9kg of muscle</p>
+                    <p style="color: #aaa; font-size: 0.9rem; line-height: 1.5; font-style: italic;">
+                        "Massive size gains through rigorous progressive overload and consistent training frequency. No wasted days."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         PREÇO
+         ════════════════════════════════════════════════════ -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <span class="label">Investment</span>
+            <h2 class="heading-lg">Monthly subscription.<br><span class="text-gold">$14.99.</span></h2>
+
+            <div class="price-card">
+                <div class="price-badge">STANDARD PRICE</div>
+                <p class="price-current">$14,99<span style="font-size:0.5em; color:var(--gray-500);">/mês</span></p>
+                <p class="price-period">Cancel anytime · 7-day guarantee</p>
+
+                <div class="price-details">
+                    <div class="price-detail">
+                        <span class="check">✓</span>
+                        <span>Workouts híbridos completos (funcional + strength training + running + cardio)</span>
+                    </div>
+                    <div class="price-detail">
+                        <span class="check">✓</span>
+                        <span>Sistema de XP, ranks militares e medalhas</span>
+                    </div>
+                    <div class="price-detail">
+                        <span class="check">✓</span>
+                        <span>Missões diárias com contagem regressiva</span>
+                    </div>
+                    <div class="price-detail">
+                        <span class="check">✓</span>
+                        <span>Acesso ao grupo do WhatsApp do squad</span>
+                    </div>
+                    <div class="price-detail">
+                        <span class="check">✓</span>
+                        <span>Painel de progresso e tracking de treinos</span>
+                    </div>
+                    <div class="price-detail">
+                        <span class="check">✓</span>
+                        <span>7-day guarantee — cancel with no friction</span>
+                    </div>
+                </div>
+
+                <a href="https://play.google.com/store/apps/details?id=com.valhallahybr.app" target="_blank" rel="noopener" class="btn-gold">
+                    <svg width="20" height="22" viewBox="0 0 20 22" fill="none"><path d="M1 1L10.5 11 1 21V1Z" fill="#000"/><path d="M14 7L10.5 11L14 15L18 12.5L14 7Z" fill="#000"/><path d="M1 1L10.5 11L14 7L1 1Z" fill="#000" opacity="0.6"/></svg>
+                    DOWNLOAD ON GOOGLE PLAY
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         FAQ
+         ════════════════════════════════════════════════════ -->
+    <section class="faq">
+        <div class="container">
+            <span class="label">FAQ</span>
+            <h2 class="heading-lg">Questions?<br><span class="text-gold">Answered.</span></h2>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <p class="faq-q">Preciso ter experiência pra start?</p>
+                    <p class="faq-a">No. Valhalla Hybrid works for beginners and experienced athletes alike. Every workout adapts to your level.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Qual a diferença pra um app de treino normal?</p>
+                    <p class="faq-a">This is not random training. Every workout earns XP, pushes you up the ranks, and moves you toward medals. It is a real progression system, not a list of exercises.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Como funciona o cancelamento?</p>
+                    <p class="faq-a">Cancel directly through the Play Store, no bureaucracy. If you cancel within 7 days, request a refund with no friction.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Tem versão pra iPhone?</p>
+                    <p class="faq-a">Available on Google Play today. The App Store version is in development and will launch soon.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">O que são XP e ranks?</p>
+                    <p class="faq-a">Each completed mission gives you experience points (XP). The harder the workout, the more XP you earn. Hit the XP threshold and you move up the rank ladder — from Recruit to Legend.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Tem suporte ou acompanhamento?</p>
+                    <p class="faq-a">Yes. There is a WhatsApp group for the squad where you train, compete, and level up together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         CTA FINAL
+         ════════════════════════════════════════════════════ -->
+    <section class="cta-final">
+        <div class="container">
+            <span class="label">Take Action</span>
+            <h2 class="heading-lg">There are no<br><span class="text-gold">shortcuts here.</span></h2>
+            <p class="body-text">
+                The decision is yours — keep doing what you have been doing or join the squad and evolve for real.
+            </p>
+            <a href="https://play.google.com/store/apps/details?id=com.valhallahybr.app" target="_blank" rel="noopener" class="btn-gold" style="margin: 0 auto;">
+                <svg width="20" height="22" viewBox="0 0 20 22" fill="none"><path d="M1 1L10.5 11 1 21V1Z" fill="#000"/><path d="M14 7L10.5 11L14 15L18 12.5L14 7Z" fill="#000"/><path d="M1 1L10.5 11L14 7L1 1Z" fill="#000" opacity="0.6"/></svg>
+                DOWNLOAD APP NOW
+            </a>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         FOOTER
+         ════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <img src="/assets/join/valhalla-ht-white.png" alt="Valhalla Hybrid">
+                    <span>VALHALLA HYBRID</span>
+                </div>
+                <span class="footer-copy">© 2026 Valhalla Hybrid. Train unbroken.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                heroHeadlineTop: 'WE TRAIN',
+                heroHeadlineBottom: 'UNBROKEN SPIRITS',
+                heroSub: 'Hybrid training with military-style progression. Functional, strength, running and cardio — all with XP, ranks and medals that turn discipline into results.',
+                heroPrice: 'Monthly subscription',
+                problemLabel: 'The Problem',
+                problemHeadingTop: 'Have you ever felt like you',
+                problemHeadingBottom: 'train and do not improve?',
+                promiseLabel: 'The Why',
+                promiseBigTop: 'You want to be the man who',
+                promiseBigMid: 'steps up when family needs it.',
+                promiseBigBottom: 'Not the guy who gets tired climbing stairs.',
+                promiseBody1: 'Valhalla Hybrid is not a workout app. It is a hybrid progression system — functional training, strength, running and cardio — built to turn discipline into real results.',
+                promiseBody2: 'Every workout gives you XP. Every XP brings you closer to a new rank. Every rank proves you did not quit.',
+                howLabel: 'How It Works',
+                howHeadingTop: 'Three pillars.',
+                howHeadingBottom: 'One system.',
+                ranksLabel: 'Progression',
+                ranksHeadingTop: 'Every rank is a',
+                ranksHeadingBottom: 'real achievement',
+                communityLabel: 'The Platoon',
+                communityHeadingTop: 'Join the',
+                communityHeadingBottom: 'squad.',
+                communityBody: 'Men who train together evolve together. Join the group, meet the fighters, compete and rise through the ranks with the squad.',
+                pricingLabel: 'Investment',
+                pricingHeadingTop: 'Monthly subscription.',
+                pricingHeadingBottom: '$14.99.',
+                ctaLabel: 'Time to Act',
+                ctaHeadingTop: 'There are no',
+                ctaHeadingBottom: 'shortcuts here.',
+                ctaBody: 'The choice is yours — keep going as you are or join the squad and evolve for real.',
+                leaderLabel: 'Who Leads',
+                leaderRole: 'Founder & Creator of Valhalla Hybrid',
+                leaderQuote: '"I created Valhalla Hybrid because I believe training without a system is just wasted effort."',
+                leaderBio: 'Valhalla Hybrid was born from practice — years of training, testing methods, and realizing that most people do not lack willpower, they lack a system that actually transforms discipline into results.',
+                leaderCred1: 'Hybrid training specialist',
+                leaderCred2: 'Creator of the Valhalla progression method',
+                leaderCred3: 'Experience with strength, running and conditioning',
+                leaderCred4: 'Leader of the Unbroken Spirits squad'
+            }
+        };
+
+        function setText(selector, text) {
+            const el = document.querySelector(selector);
+            if (el) el.innerHTML = text;
+        }
+
+        function applyEnglish() {
+            setText('.hero-headline', `${translations.en.heroHeadlineTop}<br><span class="text-gold">${translations.en.heroHeadlineBottom}</span>`);
+            setText('.hero-sub', translations.en.heroSub);
+            setText('.hero-price', `${translations.en.heroPrice} <strong>$14,99</strong>`);
+            setText('.problem .label', translations.en.problemLabel);
+            setText('.problem .heading-lg', `${translations.en.problemHeadingTop}<br><span class="text-gold">${translations.en.problemHeadingBottom}</span>`);
+            setText('.promise .label', translations.en.promiseLabel);
+            setText('.promise .big-text', `${translations.en.promiseBigTop}<br><span class="text-gold">${translations.en.promiseBigMid}</span><br>${translations.en.promiseBigBottom}`);
+            document.querySelectorAll('.promise .body-text')[0].textContent = translations.en.promiseBody1;
+            document.querySelectorAll('.promise .body-text')[1].textContent = translations.en.promiseBody2;
+            setText('.how .label', translations.en.howLabel);
+            setText('.how .heading-lg', `${translations.en.howHeadingTop}<br><span class="text-gold">${translations.en.howHeadingBottom}</span>`);
+            setText('.ranks .label', translations.en.ranksLabel);
+            setText('.ranks .heading-lg', `${translations.en.ranksHeadingTop}<br><span class="text-gold">${translations.en.ranksHeadingBottom}</span>`);
+            setText('.community .label', translations.en.communityLabel);
+            setText('.community .heading-xl', `${translations.en.communityHeadingTop}<br><span class="text-gold">${translations.en.communityHeadingBottom}</span>`);
+            document.querySelector('.community .body-text').textContent = translations.en.communityBody;
+            setText('.pricing .label', translations.en.pricingLabel);
+            setText('.pricing .heading-lg', `${translations.en.pricingHeadingTop}<br><span class="text-gold">${translations.en.pricingHeadingBottom}</span>`);
+            setText('.cta-final .label', translations.en.ctaLabel);
+            setText('.cta-final .heading-lg', `${translations.en.ctaHeadingTop}<br><span class="text-gold">${translations.en.ctaHeadingBottom}</span>`);
+            document.querySelector('.cta-final .body-text').textContent = translations.en.ctaBody;
+            setText('.leader .label', translations.en.leaderLabel);
+            document.querySelector('.leader .role').textContent = translations.en.leaderRole;
+            document.querySelector('.leader .leader-quote').textContent = translations.en.leaderQuote;
+            document.querySelector('.leader .leader-bio').textContent = translations.en.leaderBio;
+            document.querySelectorAll('.leader .leader-cred span')[1].textContent = translations.en.leaderCred1;
+            document.querySelectorAll('.leader .leader-cred span')[3].textContent = translations.en.leaderCred2;
+            document.querySelectorAll('.leader .leader-cred span')[5].textContent = translations.en.leaderCred3;
+            document.querySelectorAll('.leader .leader-cred span')[7].textContent = translations.en.leaderCred4;
+        }
+
+        // Auto-detect: se o navegador for estrangeiro (não PT), traduz sozinho instantaneamente
+        const userLang = navigator.language || navigator.userLanguage || 'pt';
+        if (!userLang.toLowerCase().startsWith('pt')) {
+            applyEnglish();
+        }
+    </script>
+</body>
+</html>
