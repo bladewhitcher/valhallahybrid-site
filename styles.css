@@ -462,6 +462,18 @@ a {
   position: relative;
   max-width: 420px;
 }
+.eyebrow-rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow-rule::before {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 18px;
+  background: var(--gold);
+}
 .cta-split-text h2 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -470,8 +482,78 @@ a {
   line-height: 1.02;
   margin: 16px 0;
 }
+.cta-split-text h2 .silver {
+  background: linear-gradient(180deg, #f2f2f2 0%, #ababab 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.cta-split-text h2 .gold-grad {
+  background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold-dim) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .cta-split-text p {
   color: var(--mist);
+}
+.built-different {
+  margin-top: 44px;
+  padding-top: 28px;
+  border-top: 1px solid var(--surface-2);
+  max-width: 340px;
+}
+.built-different .eyebrow-rule {
+  margin-bottom: 10px;
+}
+.built-different p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--mist-2);
+  margin: 0;
+}
+.cta-split-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 22px 24px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+}
+.cta-split-strip .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 28px;
+}
+.cta-split-strip .item svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--gold);
+}
+.cta-split-strip .item h4 {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin: 0;
+}
+.cta-split-strip .item p {
+  font-size: 11px;
+  color: var(--mist-2);
+  margin: 0;
+}
+.cta-split-strip .divider {
+  width: 1px;
+  height: 32px;
+  background: var(--surface-2);
 }
 .btn-framed {
   margin-top: 32px;
