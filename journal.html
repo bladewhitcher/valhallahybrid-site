@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Journal | Valhalla Hybrid</title>
+  <meta name="description" content="Field notes on discipline, hybrid training, and the standard behind Valhalla Hybrid." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:title" content="Journal | Valhalla Hybrid" />
+  <meta property="og:description" content="Field notes on discipline, hybrid training, and the standard behind Valhalla Hybrid." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/head/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="assets/head/og-cover.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav scrolled" id="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/brand/logo-mark.webp" alt="" />
+        <span>VALHALLA <span style="color: var(--gold)">HYBRID</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#top">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#method">Method</a></li>
+        <li><a href="index.html#standard">Standard</a></li>
+        <li><a href="journal.html">Journal</a></li>
+      </ul>
+      <a href="join.html" class="btn-nav">Become A Hybrid</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="journal-hero">
+      <div class="container">
+        <p class="eyebrow">The Journal</p>
+        <h1>Field notes from the forge.</h1>
+        <p>Writing on discipline, hybrid training, and the standard behind Valhalla Hybrid. No filler, no hype. Just the method.</p>
+      </div>
+    </section>
+
+    <section class="journal-list">
+      <a class="journal-card" href="journal/motivation-vs-structure.html">
+        <div class="container">
+          <span class="tag">Discipline</span>
+          <h2>You Don&rsquo;t Need More Motivation</h2>
+          <p>Motivation fades by Wednesday. Here is what actually survives a bad week, and why the men who keep showing up were never relying on feeling ready.</p>
+          <span class="meta">5 min read</span>
+        </div>
+      </a>
+      <a class="journal-card" href="journal/what-hybrid-training-means.html">
+        <div class="container">
+          <span class="tag">Method</span>
+          <h2>What Hybrid Training Actually Means</h2>
+          <p>Hybrid is not a trend or a buzzword for doing a bit of everything. It is a specific answer to a specific problem: being strong on paper and unprepared in real life.</p>
+          <span class="meta">4 min read</span>
+        </div>
+      </a>
+      <a class="journal-card" href="journal/training-without-direction.html">
+        <div class="container">
+          <span class="tag">Mistakes</span>
+          <h2>Training Without Direction Tires You Twice</h2>
+          <p>Random effort costs you in the gym and costs you again in your head, because you never know if it worked. The fix is not more intensity. It is a system.</p>
+          <span class="meta">5 min read</span>
+        </div>
+      </a>
+      <a class="journal-card" href="journal/consistency-beats-intensity.html">
+        <div class="container">
+          <span class="tag">Standard</span>
+          <h2>Consistency Beats Random Intensity</h2>
+          <p>The hardest session of the month means less than the fortieth ordinary one. Why the standard, not the highlight, is what actually changes a body.</p>
+          <span class="meta">4 min read</span>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html#top" class="footer-brand">
+          <img src="assets/brand/logo-mark.webp" alt="" />
+          <span>VALHALLA <span style="color: var(--gold)">HYBRID</span></span>
+        </a>
+        <p class="footer-tagline">Hybrid strength and conditioning, forged into a global standard.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="index.html#top">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#method">Method</a></li>
+          <li><a href="journal.html">Journal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Get The App</h3>
+        <p>Available now on Google Play. iOS is in development.</p>
+        <a href="join.html" class="footer-link-underline"><span>Become A Hybrid</span></a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; <span id="year"></span> Valhalla Hybrid. All rights reserved.</p>
+      <p>Train unbroken.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
