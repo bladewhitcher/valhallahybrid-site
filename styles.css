@@ -944,6 +944,33 @@ a {
   object-fit: cover;
   opacity: 0.18;
 }
+.article-hero.photo {
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 64px;
+}
+.article-hero.photo .bg-texture {
+  opacity: 1;
+  object-position: 62% center;
+}
+.article-hero.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--black) 15%, rgba(0, 0, 0, 0.65) 48%, rgba(0, 0, 0, 0.15));
+}
+.article-hero.photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, var(--black), transparent 45%, rgba(0, 0, 0, 0.35));
+}
+.article-hero.photo .container {
+  position: relative;
+  z-index: 2;
+}
 .article-hero .container {
   position: relative;
 }
